@@ -8,6 +8,7 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - List at least two concrete bugs you noticed at the start  
   (for example: "the secret number kept changing" or "the hints were backwards").
 
+The hints were indeed backwards. For example, entering 25 when the true number was 75 showed "Go LOWER!", and entering 79 showed "Go HIGHER!". The messages should be swapped with each other. The New Game button doesn't work after completing the game. I expect it to clear the history, reset my attempts, and generate a new number to guess, but instead, it does the exact same thing as the Submit Guess. Finally, the Hard difficulty has range 1 to 50, which is smaller than Normal with 1 to 100. I expect Hard to have a bigger range.
 ---
 
 ## 2. How did you use AI as a teammate?
