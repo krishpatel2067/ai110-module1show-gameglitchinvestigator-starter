@@ -9,6 +9,7 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
   (for example: "the secret number kept changing" or "the hints were backwards").
 
 The hints were indeed backwards. For example, entering 25 when the true number was 75 showed "Go LOWER!", and entering 79 showed "Go HIGHER!". The messages should be swapped with each other. The New Game button doesn't work after completing the game. I expect it to clear the history, reset my attempts, and generate a new number to guess, but instead, it does the exact same thing as the Submit Guess. Finally, the Hard difficulty has range 1 to 50, which is smaller than Normal with 1 to 100. I expect Hard to have a bigger range.
+
 ---
 
 ## 2. How did you use AI as a teammate?
@@ -39,6 +40,7 @@ I decided that a bug was fixed mainly from observation. I noticed that when I en
 - What change did you make that finally gave the game a stable secret number?
 
 The secret did not keep changing in the original app. Luckily it was using session state already to ensure it doesn't change across reruns. Session state is a way of persisting data across rerurns, which are basically rerenders of a Streamlit app. Again, the secret number was already stable, but if it weren't, I would've added it to the session state so that it wouldn't change across reruns in the same game. 
+
 ---
 
 ## 5. Looking ahead: your developer habits
