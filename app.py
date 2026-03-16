@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_theme import st_theme
 from logic_utils import check_guess, parse_guess, reset_game, update_score
 
 
@@ -7,6 +8,7 @@ st.set_page_config(page_title="Glitchy Guesser", page_icon="🎮")
 st.title("🎮 Game Glitch Investigator")
 st.caption("An AI-generated guessing game. Something is off.")
 
+theme = st_theme()
 st.sidebar.header("Settings")
 
 difficulty = st.sidebar.selectbox(
@@ -63,7 +65,14 @@ with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
 if pending_hint := st.session_state.get("hint"):
-    st.warning(pending_hint)
+    hint_message, proximity_label, proximity_color = pending_hint
+    st.markdown(
+        f'<div style="background-color:{proximity_color}22; color:{proximity_color}; '
+        f'padding:0.75rem 1rem; border-radius:0.5rem; border-left: 4px solid {proximity_color}; margin-bottom: 20px">'
+        f"{proximity_label}</div>",
+        unsafe_allow_html=True,
+    )
+    st.warning(hint_message)
     del st.session_state["hint"]
 
 if new_game:
@@ -91,7 +100,26 @@ if submit:
         outcome, message = check_guess(guess_int, secret)
 
         if show_hint:
-            st.session_state.hint = message
+            diff = abs(guess_int - secret)
+            game_range = st.session_state.high - st.session_state.low
+            is_dark = theme["base"] == "dark"
+            if diff <= game_range * 0.15:
+                proximity_label, proximity_color = "🔥 Very hot!", (
+                    "#ff8b8b" if is_dark else "#e53935"
+                )
+            elif diff <= game_range * 0.35:
+                proximity_label, proximity_color = "♨️ Getting warm...", (
+                    "#ffab40" if is_dark else "#e8711a"
+                )
+            elif diff <= game_range * 0.60:
+                proximity_label, proximity_color = "❄️ Pretty cold.", (
+                    "#64b5f6" if is_dark else "#1a73e8"
+                )
+            else:
+                proximity_label, proximity_color = "🧊 Ice cold!", (
+                    "#90caf9" if is_dark else "#0d47a1"
+                )
+            st.session_state.hint = (message, proximity_label, proximity_color)
 
         st.session_state.score = update_score(
             current_score=st.session_state.score,
