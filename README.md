@@ -35,5 +35,6 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 🚀 Stretch Features
 
-Added a hot/cold indicator of distance from `secret`. Visible only when "Show hint" is selected.
+Added a hot/cold indicator of distance from `secret`. Visible only when "Show hint" is selected. Compatible with both light and dark mode via a third-party theme detection module called `st-theme`.
+
 ![Hot Cold Enchancement Screenshot](./screenshots/HotCold.png)
